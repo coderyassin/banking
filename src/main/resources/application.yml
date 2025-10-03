@@ -1,3 +1,13 @@
 spring:
   application:
     name: banking
+  datasource:
+    url: jdbc:postgresql://localhost:5432/banking_db
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      hibernate:
+        ddl-auto: update
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+

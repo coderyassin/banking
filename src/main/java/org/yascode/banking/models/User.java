@@ -31,7 +31,14 @@ public class User extends AbstractEntity implements UserDetails {
 
     private String password;
 
-    private boolean active;
+    private boolean enabled;
+
+    private boolean expired;
+
+    private boolean locked;
+
+    @Column(name = "credentials_expired")
+    private boolean credentialsExpired;
 
     @OneToOne
     private Address address;
@@ -56,31 +63,31 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return expired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return locked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return credentialsExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return enabled;
     }
 }
