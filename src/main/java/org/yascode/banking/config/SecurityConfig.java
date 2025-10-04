@@ -1,5 +1,6 @@
 package org.yascode.banking.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,44 +39,24 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
-        http
+        return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(
-                        request ->
-                        {
-                            try {
-                                request.requestMatchers(
-                                                "/**/authenticate",
-                                                "/**/register",
-                                                "/api/access/**",
-                                                "/h2-console/**",
-                                                // resources for swagger to work properly
-                                                "/v2/api-docs",
-                                                "/v3/api-docs",
-                                                "/v3/api-docs/**",
-                                                "/swagger-resources",
-                                                "/swagger-resources/**",
-                                                "/configuration/ui",
-                                                "/configuration/security",
-                                                "/swagger-ui/**",
-                                                "/webjars/**",
-                                                "/swagger-ui.html"
-                                        )
-                                        .permitAll()
-                                        .anyRequest()
-                                        .authenticated();
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(
+                                "/authenticate", "/register", "/api/access/**", "/h2-console/**",
+                                "/v2/api-docs", "/v3/api-docs/**", "/swagger-resources/**",
+                                "/swagger-ui/**", "/webjars/**", "/swagger-ui.html", "/error"
+                        ).permitAll()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationManager(authenticationManager)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors(AbstractHttpConfigurer::disable);
-
-        return http.build();
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(
+                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized")
+                ))
+                .cors(AbstractHttpConfigurer::disable)
+                .build();
     }
 
     @Bean

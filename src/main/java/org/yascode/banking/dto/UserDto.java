@@ -50,7 +50,7 @@ public class UserDto {
         .lastName(user.getLastName())
         .email(user.getEmail())
         .iban(user.getAccount() == null ? "" : user.getAccount().getIban())
-        .active(user.isActive())
+        .active(user.isEnabled())
         .build();
   }
 

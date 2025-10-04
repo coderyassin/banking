@@ -18,14 +18,14 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping("/")
+    @PostMapping
   public ResponseEntity<Integer> save(
       @RequestBody LightUserDto userDto
   ) {
     return ResponseEntity.ok(service.update(userDto));
   }
 
-  @GetMapping("/")
+  @GetMapping
   public ResponseEntity<List<UserDto>> findAll() {
     return ResponseEntity.ok(service.findAll());
   }

@@ -11,44 +11,44 @@ import java.util.List;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-  private final TransactionService service;
+    private final TransactionService service;
 
     public TransactionController(TransactionService service) {
         this.service = service;
     }
 
-    @PostMapping("/")
-  public ResponseEntity<Integer> save(
-      @RequestBody TransactionDto transactionDto
-  ) {
-    return ResponseEntity.ok(service.save(transactionDto));
-  }
+    @PostMapping
+    public ResponseEntity<Integer> save(
+            @RequestBody TransactionDto transactionDto
+    ) {
+        return ResponseEntity.ok(service.save(transactionDto));
+    }
 
-  @GetMapping("/")
-  public ResponseEntity<List<TransactionDto>> findAll() {
-    return ResponseEntity.ok(service.findAll());
-  }
+    @GetMapping
+    public ResponseEntity<List<TransactionDto>> findAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
 
-  @GetMapping("/{transaction-id}")
-  public ResponseEntity<TransactionDto> findById(
-      @PathVariable("transaction-id") Integer transactionId
-  ) {
-    return ResponseEntity.ok(service.findById(transactionId));
-  }
+    @GetMapping("/{transaction-id}")
+    public ResponseEntity<TransactionDto> findById(
+            @PathVariable("transaction-id") Integer transactionId
+    ) {
+        return ResponseEntity.ok(service.findById(transactionId));
+    }
 
-  @GetMapping("/users/{user-id}")
-  public ResponseEntity<List<TransactionDto>> findAllByUserId(
-      @PathVariable("user-id") Integer userId
-  ) {
-    return ResponseEntity.ok(service.findAllByUserId(userId));
-  }
+    @GetMapping("/users/{user-id}")
+    public ResponseEntity<List<TransactionDto>> findAllByUserId(
+            @PathVariable("user-id") Integer userId
+    ) {
+        return ResponseEntity.ok(service.findAllByUserId(userId));
+    }
 
-  @DeleteMapping("/{transaction-id}")
-  public ResponseEntity<Void> delete(
-      @PathVariable("transaction-id") Integer transactionId
-  ) {
-    service.delete(transactionId);
-    return ResponseEntity.accepted().build();
-  }
+    @DeleteMapping("/{transaction-id}")
+    public ResponseEntity<Void> delete(
+            @PathVariable("transaction-id") Integer transactionId
+    ) {
+        service.delete(transactionId);
+        return ResponseEntity.accepted().build();
+    }
 
 }

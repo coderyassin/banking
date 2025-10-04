@@ -2,12 +2,21 @@ spring:
   application:
     name: banking
   datasource:
-    url: jdbc:postgresql://localhost:5432/banking_db
-    username:
-    password:
+    url: jdbc:postgresql://dev-bank.cl6y6sgueglx.eu-north-1.rds.amazonaws.com:5432/banking_db
+    username: postgres
+    password: YassMel97
     driver-class-name: org.postgresql.Driver
-    jpa:
-      hibernate:
-        ddl-auto: update
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
-
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+logging:
+  level:
+    org.springframework.security: TRACE
+    org.springframework.security.web: TRACE
+    org.springframework.security.web.access: TRACE
+    org.springframework.security.web.access.intercept: TRACE
+    org.springframework.security.web.FilterChainProxy: TRACE
+    org.springframework.security.web.access.ExceptionTranslationFilter: TRACE
+    org.springframework.security.authentication: TRACE
+    org.springframework.security.access: TRACE

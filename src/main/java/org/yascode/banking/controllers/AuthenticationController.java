@@ -14,24 +14,24 @@ import org.yascode.banking.services.UserService;
 @RequestMapping("/auth")
 public class AuthenticationController {
 
-  private final UserService userService;
+    private final UserService userService;
 
     public AuthenticationController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
-      @RequestBody UserDto user) {
+    public ResponseEntity<AuthenticationResponse> register(
+            @RequestBody UserDto user) {
 
-    return ResponseEntity.ok(userService.register(user));
-  }
+        return ResponseEntity.ok(userService.register(user));
+    }
 
-  @PostMapping("/authenticate")
-  public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request
-  ) {
-    return ResponseEntity.ok(userService.authenticate(request));
-  }
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(
+            @RequestBody AuthenticationRequest request
+    ) {
+        return ResponseEntity.ok(userService.authenticate(request));
+    }
 
 }
